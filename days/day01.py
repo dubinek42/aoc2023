@@ -1,18 +1,30 @@
 import re
 
-
-NUMBERS = {"one": 1, "two": 2, "three": 3, "four": 4,
-           "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9}
+NUMBERS = {
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+}
 
 
 def get_all_substrings(s: str) -> list[str]:
-    return [s[i: j] for i in range(len(s)) for j in range(i + 1, len(s) + 1)]
+    return [s[i:j] for i in range(len(s)) for j in range(i + 1, len(s) + 1)]
 
 
 def replace_words(line: str) -> str:
     for substring in get_all_substrings(line):
         if substring in NUMBERS:
-            line = line.replace(substring, substring[0] + str(NUMBERS[substring]) + substring[-1], 1)
+            line = line.replace(
+                substring,
+                substring[0] + str(NUMBERS[substring]) + substring[-1],
+                1,
+            )
             return replace_words(line)
     return line
 

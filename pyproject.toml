@@ -10,7 +10,47 @@ python = "^3.11"
 numpy = "^1.26.2"
 pydantic = "^2.5.2"
 typer = "^0.9.0"
+ruff = "^0.1.6"
+black = "^23.11.0"
+mypy = "^1.7.1"
 
+[tool.ruff]
+select = [
+    "C",
+    "E",
+    "F",
+    "W",      # Original flake8 setup
+    "I",      # isort
+    "D",      # Doc strings standarisation
+    "ANN204", # Adds missing standardised type hints
+    "COM",    # Fix commas - diff minimalisation technique
+    "EXE",    # Checks for forgottent scripts
+    "INP",    # Detects missing __init__.py files
+    "ISC",    # Simplifies string constants
+    "NPY",
+    "PGH",    # Forces precise ignores
+    "PIE",
+    "SIM",    # Simplify complex statements
+    "PT",     # pytest linter
+    "RUF",    # Removing outdated ignores
+    "RSE",    # Standardise exceptions
+    "SLF",    # Check for unwanted access to private members
+    "UP",     # Keep up with latest Python
+    "T",      # No prints in codebase
+    "N",      # Checks naming conventions
+]
+ignore = [
+    "T201",
+    "D100",
+    "D101",
+    "D103",
+    "D104",
+    "D211",
+    "D213",
+]
+
+[tool.black]
+target-version = ["py312"]
 
 [build-system]
 requires = ["poetry-core"]
