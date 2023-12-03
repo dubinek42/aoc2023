@@ -7,7 +7,7 @@ def main(
     day: int = typer.Option(..., "--day", "-d"),
     part: int = typer.Option(0, "--part", "-p"),
     test: bool = typer.Option(False, "--test", "-t"),
-):
+) -> None:
     try:
         package = importlib.import_module(f"days.day{day:02}")
         filename = f"input{day:02}_test.txt" if test else f"input{day:02}.txt"
