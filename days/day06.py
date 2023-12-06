@@ -32,4 +32,4 @@ def part2(day_input: str) -> int:
 
 def part2_quadratic(seconds: int, distance: int) -> int:
     x1, x2 = quadratic_equation(-1, seconds, -distance)
-    return ((x2 + (x2 % 2)) // 2) - ((x1 - (x1 % 2)) // 2) - 1
+    return int(((x2 + (x2 % 2)) // 2) - ((x1 - (x1 % 2)) // 2) - 1)
