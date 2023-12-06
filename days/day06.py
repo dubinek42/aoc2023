@@ -1,5 +1,7 @@
 from functools import reduce
 
+from .utils import quadratic_equation
+
 
 def part1(day_input: str) -> int:
     races = list(
@@ -23,4 +25,11 @@ def part2(day_input: str) -> int:
     seconds, distance = (
         int(x.split(":")[-1].replace(" ", "")) for x in day_input.splitlines()
     )
-    return sum(1 for s in range(seconds + 1) if s * (seconds - s) > distance)
+    return part2_quadratic(seconds, distance)  # This is the faster solution
+    # This is the naive solution:
+    # return sum(1 for s in range(seconds + 1) if s * (seconds - s) > distance)
+
+
+def part2_quadratic(seconds: int, distance: int) -> int:
+    x1, x2 = quadratic_equation(-1, seconds, -distance)
+    return ((x2 + (x2 % 2)) // 2) - ((x1 - (x1 % 2)) // 2) - 1
