@@ -38,7 +38,10 @@ def parse_input(day_input: str) -> tuple[list[int], list[Map]]:
 
 
 def seeds_to_ranges(seeds: list[int]) -> list[SeedRange]:
-    """Example: [2, 4, 7, 3] -> [[2, 5], [7, 9]]"""
+    """Convert seeds to ranges.
+
+    Example: [2, 4, 7, 3] -> [[2, 5], [7, 9]]
+    """
     numbers = iter(seeds)
     result = []
     for start, count in zip(numbers, numbers):
@@ -86,6 +89,7 @@ def merge_slices(slices: list[SeedRange]) -> list[SeedRange]:
     """Merge consecutive range slices if there are any.
 
     Example:
+    -------
         [[1, 19], [20, 25], [40, 50]] -> [[1, 25], [40, 50]]
     """
     slices = sorted(slices)
