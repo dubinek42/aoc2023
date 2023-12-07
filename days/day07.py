@@ -3,7 +3,7 @@ from enum import Enum
 from typing import Callable
 
 CARD_STRENGTH = ("2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A")
-CARD_STRENGTH2 = ("J", "2", "3", "4", "5", "6", "7", "8", "9", "T", "Q", "K", "A")
+CARD_STRENGTH_2 = ("J", "2", "3", "4", "5", "6", "7", "8", "9", "T", "Q", "K", "A")
 
 Game = namedtuple("Game", ["hand", "bid"])
 
@@ -19,7 +19,7 @@ class HandType(int, Enum):
 
 
 def parse_games(day_input: str) -> list[Game]:
-    return [Game(*g) for line in day_input.splitlines() if (g := line.split())]
+    return [Game(*game) for line in day_input.splitlines() if (game := line.split())]
 
 
 def get_type(hand: str) -> HandType:
@@ -49,10 +49,7 @@ def count_score(
         games,
         key=lambda x: (type_fn(x.hand), [strength.index(j) for j in x.hand]),
     )
-    result = []
-    for i, game in enumerate(sorted_games):
-        result.append((i + 1) * int(game.bid))
-    return sum(result)
+    return sum((i + 1) * int(game.bid) for i, game in enumerate(sorted_games))
 
 
 def part1(day_input: str) -> int:
@@ -60,4 +57,4 @@ def part1(day_input: str) -> int:
 
 
 def part2(day_input: str) -> int:
-    return count_score(parse_games(day_input), CARD_STRENGTH2, get_type_with_joker)
+    return count_score(parse_games(day_input), CARD_STRENGTH_2, get_type_with_joker)
