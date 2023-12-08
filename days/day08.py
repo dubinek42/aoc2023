@@ -11,6 +11,11 @@ def parse_input(day_input: str) -> tuple[str, dict[str, tuple[str, ...]]]:
     return instructions, network
 
 
+def big_lcm(x: int, y: int) -> int:
+    """Support bigger numbers than math.lcm()."""
+    return x * y // math.gcd(x, y)
+
+
 def part1(day_input: str) -> int:
     instructions, network = parse_input(day_input)
 
@@ -50,4 +55,4 @@ def part2(day_input: str) -> int:
                 repeat_points.append(steps)
                 break
 
-    return reduce(lambda x, y: x * y // math.gcd(x, y), repeat_points)
+    return reduce(big_lcm, repeat_points)
