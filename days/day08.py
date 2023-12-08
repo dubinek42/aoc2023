@@ -1,5 +1,4 @@
 import math
-from functools import reduce
 
 
 def parse_input(day_input: str) -> tuple[str, dict[str, tuple[str, ...]]]:
@@ -11,20 +10,13 @@ def parse_input(day_input: str) -> tuple[str, dict[str, tuple[str, ...]]]:
     return instructions, network
 
 
-def big_lcm(x: int, y: int) -> int:
-    """Support bigger numbers than math.lcm()."""
-    return x * y // math.gcd(x, y)
-
-
 def part1(day_input: str) -> int:
     instructions, network = parse_input(day_input)
 
-    current_instruction = 0
-    current_node = "AAA"
     steps = 0
+    current_node = "AAA"
     while current_node != "ZZZ":
-        if current_instruction >= len(instructions):
-            current_instruction = 0
+        current_instruction = steps % len(instructions)
         current_node = network[current_node][
             "LR".index(instructions[current_instruction])
         ]
@@ -39,20 +31,16 @@ def part2(day_input: str) -> int:
 
     a_nodes = [x for x in network if x.endswith("A")]
     repeat_points = []
-    for i in range(len(a_nodes)):
-        current_instruction = 0
+    for node in a_nodes:
         steps = 0
-        current_node = a_nodes[i]
-        while steps < 100000:
-            if current_instruction >= len(instructions):
-                current_instruction = 0
+        current_node = node
+        while not current_node.endswith("Z"):
+            current_instruction = steps % len(instructions)
             current_node = network[current_node][
                 "LR".index(instructions[current_instruction])
             ]
             current_instruction += 1
             steps += 1
-            if current_node.endswith("Z"):
-                repeat_points.append(steps)
-                break
+        repeat_points.append(steps)
 
-    return reduce(big_lcm, repeat_points)
+    return math.lcm(*repeat_points)
