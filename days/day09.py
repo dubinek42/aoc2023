@@ -25,7 +25,9 @@ def _get_sequences(history: list[int]) -> list[list[int]]:
 
 
 def _extrapolate(
-    history: list[int], position: int, operation: Callable[[int, int], int],
+    history: list[int],
+    position: int,
+    operation: Callable[[int, int], int],
 ) -> int:
     sequences = _get_sequences(history)
     numbers = [x[position] for x in sequences[::-1]]
