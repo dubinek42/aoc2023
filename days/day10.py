@@ -3,14 +3,7 @@ from typing import Any
 import numpy as np
 from numpy.typing import NDArray
 
-from .utils import get_2d_map
-
-neighbors = {
-    "left": lambda x: (x[0], x[1] - 1),
-    "right": lambda x: (x[0], x[1] + 1),
-    "up": lambda x: (x[0] - 1, x[1]),
-    "down": lambda x: (x[0] + 1, x[1]),
-}
+from .utils import get_2d_map, neighbors
 
 directions = {
     "|": ("up", "down"),

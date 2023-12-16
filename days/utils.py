@@ -4,6 +4,13 @@ from typing import Any
 import numpy as np
 from numpy.typing import NDArray
 
+neighbors = {
+    "left": lambda x: (x[0], x[1] - 1),
+    "right": lambda x: (x[0], x[1] + 1),
+    "up": lambda x: (x[0] - 1, x[1]),
+    "down": lambda x: (x[0] + 1, x[1]),
+}
+
 
 def quadratic_equation(a: int, b: int, c: int) -> tuple[float, float]:
     d = b**2 - 4 * a * c
