@@ -4,16 +4,18 @@ from typing import Any
 import numpy as np
 from numpy.typing import NDArray
 
+from .utils import get_2d_map
+
 
 def part1(day_input: str) -> int:
-    rock_map = _get_rock_map(day_input)
+    rock_map = get_2d_map(day_input)
     rock_map = _move_north(rock_map)
     total_load = _total_load(rock_map)
     return total_load
 
 
 def part2(day_input: str) -> int:
-    rock_map = _get_rock_map(day_input)
+    rock_map = get_2d_map(day_input)
     loads = []
     cycles_done = 0
     while True:
@@ -25,10 +27,6 @@ def part2(day_input: str) -> int:
     repeat_start = len(loads) - 2 * repeat
     cycles_end = repeat_start + (1000000000 - repeat_start) % repeat
     return loads[cycles_end - 1]
-
-
-def _get_rock_map(pattern: str) -> NDArray[Any]:
-    return np.array([list(x) for x in pattern.splitlines()])
 
 
 def _total_load(rock_map: NDArray[Any]) -> int:

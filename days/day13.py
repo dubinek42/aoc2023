@@ -1,7 +1,8 @@
 from typing import Any
 
-import numpy as np
 from numpy.typing import NDArray
+
+from .utils import get_2d_map
 
 
 def part1(day_input: str) -> int:
@@ -10,10 +11,6 @@ def part1(day_input: str) -> int:
 
 def part2(day_input: str) -> int:
     return _run(day_input, 1)
-
-
-def _get_pattern_map(pattern: str) -> NDArray[Any]:
-    return np.array([list(x) for x in pattern.splitlines()])
 
 
 def _find_mirror(pattern: NDArray[Any], smudge: int) -> int:
@@ -28,7 +25,7 @@ def _find_mirror(pattern: NDArray[Any], smudge: int) -> int:
 
 def _run(day_input: str, smudge: int = 0) -> int:
     return sum(
-        100 * _find_mirror(_get_pattern_map(p), smudge)
-        + _find_mirror(_get_pattern_map(p).T, smudge)
+        100 * _find_mirror(get_2d_map(p), smudge)
+        + _find_mirror(get_2d_map(p).T, smudge)
         for p in day_input.split("\n\n")
     )

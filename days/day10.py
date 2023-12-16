@@ -3,6 +3,8 @@ from typing import Any
 import numpy as np
 from numpy.typing import NDArray
 
+from .utils import get_2d_map
+
 neighbors = {
     "left": lambda x: (x[0], x[1] - 1),
     "right": lambda x: (x[0], x[1] + 1),
@@ -28,23 +30,19 @@ opposite = {
 
 
 def part1(day_input: str) -> int:
-    pipes = _get_pipe_map(day_input)
+    pipes = get_2d_map(day_input)
     start = _get_start_position(pipes)
     direction = _get_first_directions(start, pipes)[0]
     return len(_build_loop(pipes, start, direction)) // 2
 
 
 def part2(day_input: str) -> int:
-    pipes = _get_pipe_map(day_input)
+    pipes = get_2d_map(day_input)
     start = _get_start_position(pipes)
     can_go = _get_first_directions(start, pipes)
     start_symbol = _get_start_symbol(can_go)
     loop = _build_loop(pipes, start, can_go[0])
     return _count_inside(pipes, start_symbol, loop)
-
-
-def _get_pipe_map(day_input: str) -> NDArray[Any]:
-    return np.array([list(x) for x in day_input.splitlines()])
 
 
 def _get_first_directions(start: tuple[int, int], pipes: NDArray[Any]) -> list[str]:

@@ -4,13 +4,15 @@ from typing import Any
 import numpy as np
 from numpy.typing import NDArray
 
+from .utils import get_2d_map
+
 
 def part1(day_input: str) -> int:
-    return count_galaxy_distances(_get_galaxy_map(day_input), expand_factor=2)
+    return count_galaxy_distances(get_2d_map(day_input), expand_factor=2)
 
 
 def part2(day_input: str) -> int:
-    return count_galaxy_distances(_get_galaxy_map(day_input), expand_factor=1000000)
+    return count_galaxy_distances(get_2d_map(day_input), expand_factor=1000000)
 
 
 def count_galaxy_distances(galaxy_map: NDArray[Any], expand_factor: int) -> int:
@@ -18,10 +20,6 @@ def count_galaxy_distances(galaxy_map: NDArray[Any], expand_factor: int) -> int:
         _distance(a, b)
         for a, b in list(combinations(_expand_galaxies(galaxy_map, expand_factor), 2))
     )
-
-
-def _get_galaxy_map(day_input: str) -> NDArray[Any]:
-    return np.array([list(x) for x in day_input.splitlines()])
 
 
 def _get_empty_space(galaxy_map: NDArray[Any]) -> tuple[list[int], ...]:
