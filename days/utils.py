@@ -19,3 +19,7 @@ def quadratic_equation(a: int, b: int, c: int) -> tuple[float, float]:
 
 def get_2d_map(s: str) -> NDArray[Any]:
     return np.array([list(x) for x in s.splitlines()])
+
+
+def in_bounds(position: tuple[int, int], shape: tuple[int, int]) -> bool:
+    return all(x[1] > x[0] >= 0 for x in zip(position, shape))
